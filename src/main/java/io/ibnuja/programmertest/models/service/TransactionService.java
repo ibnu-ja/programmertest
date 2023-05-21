@@ -20,4 +20,8 @@ public class TransactionService {
     public Transaction create(Transaction transaction) {
         return transactionRepository.save(transaction);
     }
+
+    public Iterable<Transaction> getByCustomerAccount(int customerAccountId) {
+        return transactionRepository.findByAccountId(customerAccountId);
+    }
 }

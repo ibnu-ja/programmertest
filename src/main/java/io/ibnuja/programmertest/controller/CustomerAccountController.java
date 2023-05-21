@@ -48,4 +48,9 @@ public class CustomerAccountController {
 
         return transactionService.create(transaction);
     }
+
+    @GetMapping("/{accountId}/transaction")
+    public Iterable<Transaction> getTransactionByAccount(@PathVariable int accountId) {
+        return transactionService.getByCustomerAccount(accountId);
+    }
 }

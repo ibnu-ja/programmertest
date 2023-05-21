@@ -1,6 +1,7 @@
 package io.ibnuja.programmertest.models.service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import org.springframework.stereotype.Service;
 
@@ -56,5 +57,9 @@ public class TransactionService {
         }
 
         return points;
+    }
+
+    public Iterable<Transaction> getTransactionsByAccountAndDateRange(int accountId, LocalDate startDate, LocalDate endDate) {
+        return transactionRepository.findByAccountIdAndTransactionDateBetween(accountId, startDate, endDate);
     }
 }

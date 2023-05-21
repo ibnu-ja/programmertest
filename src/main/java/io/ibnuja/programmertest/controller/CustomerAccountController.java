@@ -1,18 +1,22 @@
 package io.ibnuja.programmertest.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.ibnuja.programmertest.models.entity.CustomerAccount;
 import io.ibnuja.programmertest.models.entity.CustomerPoint;
+import io.ibnuja.programmertest.models.entity.SavingBook;
 import io.ibnuja.programmertest.models.entity.Transaction;
 import io.ibnuja.programmertest.models.service.CustomerAccountService;
 import io.ibnuja.programmertest.models.service.TransactionService;
@@ -75,7 +79,8 @@ public class CustomerAccountController {
             int totalPoints = 0;
 
             for (Transaction transaction : transactions) {
-                log.info("transaction type is: "+ transaction.getDebitCreditStatus() + " and amount is: " + transaction.getAmount());
+                log.info("transaction type is: " + transaction.getDebitCreditStatus() + " and amount is: "
+                        + transaction.getAmount());
                 int points = transactionService.calculatePoints(transaction);
                 log.info("current points is: " + points);
                 totalPoints += points;
@@ -87,5 +92,35 @@ public class CustomerAccountController {
         }
 
         return customerPointsList;
+    }
+
+    @GetMapping("/{accountId}/saving-book")
+    public Iterable<SavingBook> getSavingBookByAccountAndDateRange(
+            @PathVariable int accountId,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        Iterable<Transaction> transactions = transactionService.getTransactionsByAccountAndDateRange(accountId,
+                startDate, endDate);
+
+        List<SavingBook> savingBookList = new ArrayList<>();
+
+        for (Transaction transaction : transactions) {
+            SavingBook savingBook = new SavingBook();
+            savingBook.setTransactionDate(transaction.getTransactionDate());
+            savingBook.setDescription(transaction.getDescription());
+            savingBook.setAmount(transaction.getAmount());
+
+            if (transaction.getDebitCreditStatus().equals("D")) {
+                savingBook.setDebit(transaction.getAmount().toString());
+                savingBook.setCredit("-");
+            } else {
+                savingBook.setDebit("-");
+                savingBook.setCredit(transaction.getAmount().toString());
+            }
+
+            savingBookList.add(savingBook);
+        }
+
+        return savingBookList;
     }
 }

@@ -1,0 +1,178 @@
+{
+	"info": {
+		"_postman_id": "5d6dd2fb-2d94-410e-a21b-eec45d486ebd",
+		"name": "programmertest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10638282"
+	},
+	"item": [
+		{
+			"name": "account@index",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/account",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "account@store",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Account2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/account",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "account@storeTransaction",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"transactionDate\": \"2017-01-01\",\r\n    \"description\": \"Beli    \",\r\n    \"debitCreditStatus\": \"D\",\r\n    \"amount\": \"100000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/account/2/transaction",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"2",
+						"transaction"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "account@indexTransaction",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"transactionDate\": \"2017-01-01\",\r\n    \"description\": \"Setor Tunai\",\r\n    \"debitCreditStatus\": \"C\",\r\n    \"amount\": \"200000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/account/1/transaction",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"1",
+						"transaction"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "account@getBayarListrikTransactionByAccount",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/account/transaction/points",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"transaction",
+						"points"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "account@getSavingBookByAccountAndDateRange",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/account/1/saving-book?startDate=2017-01-01&endDate=2017-03-15",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"1",
+						"saving-book"
+					],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "2017-01-01"
+						},
+						{
+							"key": "endDate",
+							"value": "2017-03-15"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

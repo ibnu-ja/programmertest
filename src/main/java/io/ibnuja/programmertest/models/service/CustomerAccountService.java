@@ -16,4 +16,8 @@ public class CustomerAccountService {
     public Iterable<CustomerAccount> getAll() {
         return customerAccountRepository.findAll();
     }
+
+    public CustomerAccount create(CustomerAccount customerAccount) {
+        return customerAccountRepository.save(customerAccount);
+    }
 }

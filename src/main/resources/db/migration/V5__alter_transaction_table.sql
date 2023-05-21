@@ -1,0 +1,2 @@
+ALTER TABLE transaction
+ALTER COLUMN amount TYPE MONEY;
